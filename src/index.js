@@ -27,7 +27,10 @@ btnNode.addEventListener('click',() => {
 });
 
 btnClearNode.addEventListener('click', function(){
+
+    storage.delete(model.get());
+
     model.clear();
     view.render(model.get());
-    storage.push(model.get());
+  
 });

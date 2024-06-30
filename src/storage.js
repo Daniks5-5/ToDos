@@ -1,5 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc, writeBatch, doc} from "firebase/firestore";
+
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBohOxLe5EZuHwKEX3VSDmbmKNBnjkAELA",
@@ -41,7 +44,23 @@ export function createStorage(key) {
       } catch (e) {
         console.error("Error adding document: ", e);
       }
-     
+    },
+    //удаление данных из бд
+    delete: async function(todos){
+      const batch = writeBatch(this.db);
+
+      todos.forEach((todo) =>{
+      const laRef = doc(this.db, this.key, todo.id);
+      batch.delete(laRef);
+
+      });
+      await batch.commit();
+
+   
+
+
+
+
     }
   };
 }
