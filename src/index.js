@@ -8,7 +8,7 @@ const btnNode = document.getElementById('js-btn');
 const btnClearNode = document.getElementById('js-clear-btn');
 const initialTodos = [];
 const model = createTodosModel(initialTodos);
-const view = createView('#js-output'); // Update the selector to include '#' for ID
+const view = createView('#js-output'); // Обновляем селектор, добавляя '#' для ID
 const storage = createStorage(TODOS_STORAGE_KEY);
 
 storage.pull().then((todos) => {
@@ -16,8 +16,18 @@ storage.pull().then((todos) => {
     view.render(model.get());
 });
 
-btnNode.addEventListener('click', function() {
-    const todo = inputNode.value;
-    model.add(todo);
+btnNode.addEventListener('click',() => {
+    const todo = {
+        title: inputNode.value,
+        status: 'active',
+    };
+    model.add(todo); //добавление в model todo
     view.render(model.get());
+    storage.push(todo);
+});
+
+btnClearNode.addEventListener('click', function(){
+    model.clear();
+    view.render(model.get());
+    storage.push(model.get());
 });

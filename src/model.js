@@ -5,7 +5,7 @@ export function createTodosModel(todos){
             this.todos = todos;
         },
         add: function(todo){
-            this.todo.push(todo);
+            this.todos.push(todo);
         },
         get: function(){
             return this.todos;

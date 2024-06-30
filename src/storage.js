@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBohOxLe5EZuHwKEX3VSDmbmKNBnjkAELA",
@@ -10,14 +10,15 @@ const firebaseConfig = {
   appId: "1:322448253014:web:823c8058f8e876ae0e1bf7"
 };
 
+//cоздания объекта хранилища данных
 export function createStorage(key) {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
   return {
-    key,
-    db,
-    pull: async function () {
+    key, // ключ хранилища 
+    db, //объект базы данных
+    pull: async function () { // асинхронный метод для извлечения данных из коллекции с указанным ключом
       const querySnapshot = await getDocs(collection(this.db, this.key));
       const todos = [];
       querySnapshot.forEach((doc) => {
@@ -29,8 +30,18 @@ export function createStorage(key) {
       });
       return todos;
     },
-    push: function (data) {
-      return addDoc(collection(this.db, this.key), data);
+    push: async function (todo) { //отправляет данные в local
+      try {
+        //отправка данных в firebase
+        const docRef = await addDoc(collection(this.db, this.key), { //todos имя коллекции и создаю новый документ с помощью метода addDoc и он же API
+          title: todo.title,
+          status: todo.status,
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+     
     }
   };
 }
