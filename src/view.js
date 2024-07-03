@@ -3,12 +3,29 @@ export function createView(selector) {
     return {
         node,
         render: function(todos) {
-            let outputListHTML = '';
-            todos.forEach(function(todo) {
-                outputListHTML += `<div><li>${todo.title}<ul><li>${todo.body}</li></ul></li></div>`;
+            todos.forEach((todo) => {
+                this.addTodo(todo);
             });
-            this.node.innerHTML = `<div><ul>${outputListHTML}</ul></div>`;
+        },
+        clear: function (){
+            this.node.innerHTML = '';
+        },
+        addTodo: function(todo) { // Добавлен параметр todo
+            const div = document.createElement('div');
+            const input = document.createElement('input');
+            const label = document.createElement('label');
+            input.setAttribute('type', 'checkbox');
+            input.setAttribute('id', todo.id);
+            input.onclick =()=>{
+                console.log(2);
+            }
+            if (todo.done) {
+                input.setAttribute('checked', true);
+            }
+            label.innerText = todo.title;
+            label.setAttribute('for', todo.id);
+            div.append(input, label); // Исправлено добавление элементов в div
+            this.node.append(div);
         }
     };
-};
-
+}

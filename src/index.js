@@ -4,7 +4,6 @@ import { createStorage } from "./storage";
 import { createView } from "./view";
 
 const inputNode = document.getElementById('js-input');
-const inputBodyNode = document.getElementById('js-body-input');
 const btnNode = document.getElementById('js-btn');
 const btnClearNode = document.getElementById('js-clear-btn');
 const initialTodos = []; // Создание массива todos
@@ -21,18 +20,17 @@ storage.pull().then((todos) => {
 });
 
 btnNode.addEventListener('click', () => {
-    const todo = {
-        title: inputNode.value,
-        body: inputBodyNode.value,
-        status: 'active',
-    };
-    model.add(todo); // Добавление в модель todo
-    view.render(model.get());
+    const todo = model.create({
+        title:inputNode.value,
+    }); //передаю title  в model
+
+    model.create(todo); // Добавление в модель todo
+    view.addTodo(todo);
     storage.push(todo);
 });
 
 btnClearNode.addEventListener('click', function(){
     storage.delete(model.get());
     model.clear();
-    view.render(model.get());
+    view.clear();
 });

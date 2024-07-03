@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, addDoc, writeBatch, doc, serverTimestamp, query, orderBy, deleteDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, setDoc, writeBatch, doc, serverTimestamp, query, orderBy, deleteDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBohOxLe5EZuHwKEX3VSDmbmKNBnjkAELA",
@@ -27,7 +27,6 @@ export function createStorage(key) {
         todos.push({
           id: doc.id,
           title: doc.data().title,
-          body: doc.data().body,
         });
         console.log(`${doc.id} => ${doc.data().title}`);
       });
@@ -36,13 +35,11 @@ export function createStorage(key) {
     push: async function (todo) {
       try {
         // Отправка данных в Firebase
-        const docRef = await addDoc(collection(this.db, this.key), {
+        const docRef = await setDoc(doc(this.db, this.key, todo.id), {
           title: todo.title,
-          body: todo.body,
-          status: todo.status,
+          done:todo.done , //статус
           createdAt: serverTimestamp(),
         });
-        console.log("Document written with ID: ", docRef.id);
       } catch (e) {
         console.error("Error adding document: ", e);
       }
