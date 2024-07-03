@@ -5,9 +5,10 @@ export function createView(selector) {
         render: function(todos) {
             let outputListHTML = '';
             todos.forEach(function(todo) {
-                outputListHTML += `<li>${todo.title}</li>`;
+                outputListHTML += `<div><li>${todo.title}<ul><li>${todo.body}</li></ul></li></div>`;
             });
-            this.node.innerHTML = `<ul>${outputListHTML}</ul>`;
+            this.node.innerHTML = `<div><ul>${outputListHTML}</ul></div>`;
         }
     };
-}
+};
+

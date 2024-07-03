@@ -27,7 +27,9 @@ export function createStorage(key) {
       querySnapshot.forEach((doc) => {
         todos.push({
           id: doc.id,
-          title: doc.data().title
+          title: doc.data().title,
+          body: doc.data().body,
+
         });
         console.log(`${doc.id} => ${doc.data().title}`);
       });
@@ -38,6 +40,7 @@ export function createStorage(key) {
         //отправка данных в firebase
         const docRef = await addDoc(collection(this.db, this.key), { //todos имя коллекции и создаю новый документ с помощью метода addDoc и он же API
           title: todo.title,
+          body: todo.body,
           status: todo.status,
         });
         console.log("Document written with ID: ", docRef.id);
