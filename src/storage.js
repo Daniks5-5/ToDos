@@ -56,7 +56,7 @@ export function createStorage(key) {
     },
     update: async function (todo) {
       const ref = doc(this.db, this.key, todo.id);
-
+      //смена значения при нажатии флажка, тут же можно добавить с такой же логикой изменение заголовка
       await updateDoc(ref, {
        done: todo.done
       });

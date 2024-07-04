@@ -1,47 +1,42 @@
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
-export function createTodosModel(todos){
-    return{
+export function createTodosModel(todos) {
+    return {
         todos,
-        update:function(todos){
-            this.todos = todos;
-        },
-        create: function({title}){ //добавляет новую todo и воззвращает
+        todosById,
+        addTodo: function ({ title }) { //добавляет новую todo и возвращает в storage
             const todo = {
                 title,
-                done:false,
+                done: false,
                 id: uuidv4()
             };
-            this.todos.push(todo);
+            this.todos.push(todo.id);
+            this.todosById[id] = todo;
             return todo;
         },
-        get: function(){
+        setTodos: function (todos) {
+            this.todos = [];//массив по id
+            this.todosById = {};//массив по key
+            todos.forEach(todo => {
+                todos.push(todo.id),
+                    this.todosById[id] = todo;
+
+            });
+        },
+        getTodos: function () {
             return this.todos;
         },
-        clear: function(){
-            this.todos = []; 
+        getTodosById: function () {
+            return this.todosById;
         },
         //переключатель при нажатии на флажок задачи
-        toggleTodo: function(id){
-            this.get().forEach(todo => {
-                if(id !== todo.id){
-                    return;
-                }
-                todo.done = !todo.done;
-                console.log(todo);
-            });
+        toggleTodo: function (id) {
+            this.todosById[id].done = !this.todosById[id].done
 
         },
         //достаём todo по id
-        getTodo: function(id){
-            let result = null;
-            //получаю все todo
-            this.get().forEach(todo =>{
-                if(id === todo.id){
-                    result = todo;
-                }
-            })
-            return result;
+        getTodo: function (id) {
+            return this.todosById[id];
         }
     };
 }

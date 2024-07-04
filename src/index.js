@@ -13,14 +13,14 @@ const storage = createStorage(TODOS_STORAGE_KEY);
 
 // Беру данные с базы данных и выводим на странице
 storage.pull().then((todos) => {
-    model.update(todos);
+    model.setTodos(todos);
     view.render(model.get());
 }).catch((error) => {
     console.error('An error occurred while fetching data:', error);
 });
 
 btnNode.addEventListener('click', () => {
-    const todo = model.create({
+    const todo = model.addTodo({
         title: inputNode.value,
     }); //передаю title  в model
 
@@ -31,7 +31,7 @@ btnNode.addEventListener('click', () => {
 
 btnClearNode.addEventListener('click', function () {
     storage.delete(model.get());
-    model.clear();
+    model.set([]);
     view.clear();
 });
 
