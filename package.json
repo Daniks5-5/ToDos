@@ -2,9 +2,11 @@
   "name": "my-project",
   "source": "src/index.html",
   "browserslist": "> 0.5%, last 2 versions, not dead",
+  "homepage": "https://github.com/Daniks5-5/ToDos/",
+  
   "scripts": {
     "start": "parcel",
-    "build": "parcel build --no-source-maps --dist-dir prod"
+   "build": "parcel build src/*.html --public-url /ToDos/"
   },
   "devDependencies": {
     "buffer": "^6.0.3",
@@ -14,5 +16,7 @@
   "dependencies": {
     "firebase": "^10.12.2",
     "uuid": "^10.0.0"
+    
   }
+  
 }
