@@ -20,6 +20,28 @@ export function createTodosModel(todos){
         },
         clear: function(){
             this.todos = []; 
+        },
+        //переключатель при нажатии на флажок задачи
+        toggleTodo: function(id){
+            this.get().forEach(todo => {
+                if(id !== todo.id){
+                    return;
+                }
+                todo.done = !todo.done;
+                console.log(todo);
+            });
+
+        },
+        //достаём todo по id
+        getTodo: function(id){
+            let result = null;
+            //получаю все todo
+            this.get().forEach(todo =>{
+                if(id === todo.id){
+                    result = todo;
+                }
+            })
+            return result;
         }
     };
 }

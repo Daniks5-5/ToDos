@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, setDoc, writeBatch, doc, serverTimestamp, query, orderBy, deleteDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, setDoc, writeBatch, doc, serverTimestamp, query, orderBy,updateDoc , deleteDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBohOxLe5EZuHwKEX3VSDmbmKNBnjkAELA",
@@ -27,6 +27,7 @@ export function createStorage(key) {
         todos.push({
           id: doc.id,
           title: doc.data().title,
+          done:doc.data().done
         });
         console.log(`${doc.id} => ${doc.data().title}`);
       });
@@ -37,7 +38,7 @@ export function createStorage(key) {
         // Отправка данных в Firebase
         const docRef = await setDoc(doc(this.db, this.key, todo.id), {
           title: todo.title,
-          done:todo.done , //статус
+          done: todo.done, //статус
           createdAt: serverTimestamp(),
         });
       } catch (e) {
@@ -45,13 +46,20 @@ export function createStorage(key) {
       }
     },
     // Удаление данных из базы данных
-    delete: async function(todos) {
+    delete: async function (todos) {
       const batch = writeBatch(this.db);
       todos.forEach((todo) => {
         const todoRef = doc(this.db, this.key, todo.id);
         batch.delete(todoRef);
       });
       await batch.commit();
+    },
+    update: async function (todo) {
+      const ref = doc(this.db, this.key, todo.id);
+
+      await updateDoc(ref, {
+       done: todo.done
+      });
     }
   };
 }
