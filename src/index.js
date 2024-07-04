@@ -11,33 +11,33 @@ const model = createTodosModel(initialTodos);
 const view = createView('#js-output', handleClickTodo); // Обновляем селектор, добавляя '#' для ID
 const storage = createStorage(TODOS_STORAGE_KEY);
 
-// Беру данные с базы данных и выводим на странице
+// Беру данные с backend 
 storage.pull().then((todos) => {
-    model.setTodos(todos);
-    view.render(model.get());
+    model.setTodos(todos); //обновляю данные
+    view.renderTodos(model.getTodos()); //делаю отрисовку данных
 }).catch((error) => {
     console.error('An error occurred while fetching data:', error);
 });
 
 btnNode.addEventListener('click', () => {
+    //добаляем todo
+    const todoTitle = inputNode.value;
     const todo = model.addTodo({
-        title: inputNode.value,
+        title: todoTitle,
     }); //передаю title  в model
-
-    model.create(todo); // Добавление в модель todo
-    view.addTodo(todo);
-    storage.push(todo);
+    view.addTodo(todo);//отображаю todo
+    storage.push(todo); //сохраняю todo в бд
 });
-
+//очищаем бд и страницу
 btnClearNode.addEventListener('click', function () {
-    storage.delete(model.get());
-    model.set([]);
-    view.clear();
+    storage.delete(model.getTodos());
+    model.setTodos([]); //чищу бд
+    view.clearTodos(); //убераю отображение
 });
 
-//получение id
+//переключение флажка
 function handleClickTodo(id) {
-    model.toggleTodo(id);
-    storage.update(model.getTodo(id));
+    model.toggleTodo(id); //переключаем todo в model
+    storage.update(model.getTodo(id)); //обновляем
 
 }

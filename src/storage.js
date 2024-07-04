@@ -46,10 +46,10 @@ export function createStorage(key) {
       }
     },
     // Удаление данных из базы данных
-    delete: async function (todos) {
+    delete: async function ({todosIds}) {
       const batch = writeBatch(this.db);
-      todos.forEach((todo) => {
-        const todoRef = doc(this.db, this.key, todo.id);
+      todosIds.forEach((id) => {
+        const todoRef = doc(this.db, this.key, id);
         batch.delete(todoRef);
       });
       await batch.commit();

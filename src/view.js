@@ -2,12 +2,12 @@ export function createView(selector, onClickTodo) {
     const node = document.querySelector(selector);
     return {
         node,
-        render: function(todos) {
-            todos.forEach((todo) => {
-                this.addTodo(todo);
+        renderTodos: function({todosIds, todosById}) {
+            todosIds.forEach((id) => {
+                this.addTodo(todosById[id]);
             });
         },
-        clear: function (){
+        clearTodos: function (){
             this.node.innerHTML = '';
         },
         addTodo: function(todo) { // Добавлен параметр todo
@@ -20,7 +20,6 @@ export function createView(selector, onClickTodo) {
             input.onclick =()=>{
                 onClickTodo(todo.id);
             }
-
             if (todo.done) {
                 input.setAttribute('checked', true);
             }
