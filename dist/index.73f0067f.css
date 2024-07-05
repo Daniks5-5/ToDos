@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.body {
+  flex-direction: column;
+  width: 100%;
+  max-width: 1150px;
+  margin: 0% auto;
+  padding-left: 5px;
+  padding-right: 5px;
+  display: flex;
+}
+
+.main-text {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1%;
+  width: 100%;
+  max-width: 650px;
+  margin: 0% auto;
+  display: flex;
+}
+
+@media (width <= 767px) {
+  .main-text {
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+}
+
+.main-text h1 {
+  font-family: var(--third-family);
+  text-align: center;
+  color: #000;
+  width: 100%;
+  max-width: 507px;
+  font-size: clamp(20px, 8vw, 60px);
+  font-weight: 400;
+}
+
+.main-text h2 {
+  font-family: var(--third-family);
+  text-align: center;
+  color: #0009;
+  font-size: clamp(14px, 4vw, 25px);
+  font-weight: 400;
+}
+
+.main-input {
+  width: 100%;
+  max-width: 880px;
+  margin: 100px auto 20px;
+}
+
+@media (width <= 767px) {
+  .main-input {
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+}
+
+.main-input input {
+  border: 2px solid #000;
+  width: 100%;
+  max-width: 873px;
+  height: 63px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.main-button {
+  justify-content: space-between;
+  width: 100%;
+  max-width: 873px;
+  margin: 0% auto;
+  display: flex;
+}
+
+@media (width <= 767px) {
+  .main-button {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 1%;
+  }
+}
+
+.main-button button:first-child {
+  font-family: var(--third-family);
+  color: #fff;
+  background-color: #3253ff;
+  border: none;
+  width: 100%;
+  max-width: 243px;
+  height: 62px;
+  font-size: clamp(14px, 4vw, 25px);
+  font-weight: 400;
+}
+
+.main-button button:nth-child(2) {
+  font-family: var(--third-family);
+  color: #000;
+  background-color: #fff;
+  border: 2px solid #3253ff;
+  width: 100%;
+  max-width: 243px;
+  height: 62px;
+  font-size: clamp(14px, 4vw, 25px);
+  font-weight: 400;
+}
+
+.output {
+  color: #000;
+  width: 100%;
+  max-width: 873px;
+  margin: 20px auto 0%;
+  font-size: clamp(14px, 4vw, 32px);
+}
+/*# sourceMappingURL=index.73f0067f.css.map */
