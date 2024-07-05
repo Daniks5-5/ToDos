@@ -5,7 +5,9 @@
   "homepage": "https://github.com/Daniks5-5/ToDos",
   "scripts": {
     "start": "parcel",
-    "build": "parcel build src/*.html --public-url /ToDos"
+    "build": "parcel build src/*.html --public-url /ToDos",
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build"
   },
   "devDependencies": {
     "buffer": "^6.0.3",
@@ -16,6 +18,7 @@
   },
   "dependencies": {
     "firebase": "^10.12.2",
+    "gh-pages": "^6.1.1",
     "uuid": "^10.0.0"
   }
 }
